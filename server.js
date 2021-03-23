@@ -10,4 +10,4 @@ const express = require('express'),
 app.use(cors(),express.json(),express.urlencoded({"extended":true}));
 
 require('./server/config/database.config');
-require('./server/routes/template.routes')(app);
+require('./server/routes/author.routes')(app);

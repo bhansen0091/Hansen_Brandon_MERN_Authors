@@ -1,25 +1,25 @@
-import TemplateForm from '../components/TemplateForm';
-import { navigate } from '@reach/router';
+import AuthorForm from '../components/AuthorForm';
+import NotFound from './NotFound'
 import {useState, useEffect} from 'react';
+import { navigate} from '@reach/router';
 import Axios from 'axios';
 
 const Edit = props => {
-    const [template, setTemplate] = useState(false);
+    const [author, setAuthor] = useState(false);
 
     useEffect(() => {
-        Axios.get(`http://localhost:8000/api/templates/${props.id}`)
-            .then(res => setTemplate(res.data.results[0]))
+        Axios.get(`http://localhost:8000/api/authors/${props.id}`)
+            .then(res => setAuthor(res.data.results[0]))
             .catch(err => console.log(err))
     }, [props])
 
     const [errors, setErrors] = useState({
-        itemOne: "",
-        itemTwo: ""
+        name: "",
     })
 
     const handleChange = e => {
-        setTemplate({
-            ...template,
+        setAuthor({
+            ...author,
             [e.target.name] : e.target.value
         })
     }
@@ -27,7 +27,7 @@ const Edit = props => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        Axios.put(`http://localhost:8000/api/templates/${props.id}`, template)
+        Axios.put(`http://localhost:8000/api/authors/${props.id}`, author)
         .then(res => navigate('/'))
         .catch(err => {
             console.log(err.response.data.errors);
@@ -38,17 +38,17 @@ const Edit = props => {
     return(
         <>
             {
-                template?
-                <TemplateForm 
-                    inputs = {template}
-                    title = "Edit Template"
+                author?
+                <AuthorForm 
+                    inputs = {author}
+                    title = "Edit Author"
                     submitValue = "Edit"
                     handleInputChange = {handleChange}
                     handleSubmit = {handleSubmit}
                     errors = {errors}
                 /> :
-                <h2>Loading....</h2>
-            }   
+                <NotFound />
+            }
         </>
     )
 }

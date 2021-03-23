@@ -1,5 +1,5 @@
 const mongoose = require('mongoose'),
-    db = "templateDB";
+    db = "authorDB";
 
 mongoose.connect(`mongodb://localhost/${db}`, {
     useNewUrlParser:true,

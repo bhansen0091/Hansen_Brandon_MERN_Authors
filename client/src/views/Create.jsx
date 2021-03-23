@@ -1,23 +1,21 @@
-import TemplateForm from '../components/TemplateForm';
+import AuthorForm from '../components/AuthorForm';
 import { navigate } from '@reach/router';
 import {useState} from 'react';
 import Axios from 'axios';
 
 
 const Create = props => {
-    const [template, setTemplate] = useState({
-        itemOne:"",
-        itemTwo:""
+    const [author, setAuthor] = useState({
+        name:"",
     })
 
     const [errors, setErrors] = useState({
-        itemOne: "",
-        itemTwo: ""
+        name: "",
     })
 
     const handleChange = e => {
-        setTemplate({
-            ...template,
+        setAuthor({
+            ...author,
             [e.target.name] : e.target.value
         })
     }
@@ -25,7 +23,7 @@ const Create = props => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        Axios.post("http://localhost:8000/api/templates", template)
+        Axios.post("http://localhost:8000/api/authors", author)
         .then(res => navigate('/'))
         .catch(err => {
             console.log(err.response.data.errors);
@@ -36,9 +34,9 @@ const Create = props => {
 
     return(
         <>
-            <TemplateForm 
-                inputs = {template}
-                title = "Create Template"
+            <AuthorForm 
+                inputs = {author}
+                title = "Create Author"
                 submitValue = "Create"
                 handleInputChange = {handleChange}
                 handleSubmit = {handleSubmit}

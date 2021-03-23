@@ -1,24 +1,25 @@
+import NotFound from './NotFound';
 import {useState, useEffect} from 'react';
 import Axios from 'axios';
 
 
 const Show = props => {
-    const [template, setTemplate] = useState(false);
+    const [author, setAuthor] = useState(false);
 
     useEffect(() => {
-        Axios.get(`http://localhost:8000/api/templates/${props.id}`)
-        .then(res => setTemplate(res.data.results[0]))
+        Axios.get(`http://localhost:8000/api/authors/${props.id}`)
+        .then(res => setAuthor(res.data.results[0]))
         .catch(err => console.log(err))
     }, [props])
 
     return(
-
+        author ?
         <div className="card col-4 mx-auto">
             <div className="card-body">
-                <h2 className="card-title">{template.itemOne}</h2>
-                <p className="card-text">{template.itemTwo}</p>
+                <h3 className="card-title">{author.name}</h3>
             </div>
-        </div>
+        </div> :
+        <NotFound />
     )
 }
 

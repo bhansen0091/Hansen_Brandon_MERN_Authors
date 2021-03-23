@@ -3,22 +3,22 @@ import { Link } from '@reach/router';
 import Axios from 'axios';
 
 const Main = props => {
-    const [templates, setTemplates] = useState(null);
+    const [authors, setAuthors] = useState(null);
 
     useEffect(() => {
-        Axios.get("http://localhost:8000/api/templates")
-            .then(res => setTemplates(res.data.results))
+        Axios.get("http://localhost:8000/api/authors")
+            .then(res => setAuthors(res.data.results))
             .catch(err => console.log(err))
     }, [])
 
-    const handleDestroyTemplate = (id) => {
-        Axios.delete(`http://localhost:8000/api/templates/${id}`)
-            .then(res => setTemplates(res.data.results))
+    const handleDestroyAuthor = (id) => {
+        Axios.delete(`http://localhost:8000/api/authors/${id}`)
+            .then(res => setAuthors(res.data.results))
             .catch(err => console.log(err))
     }
 
     return(
-        templates ?
+        authors ?
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -28,18 +28,20 @@ const Main = props => {
                 </thead>
                 <tbody>
                     {
-                        templates.map((j,i) => {
+                        authors.map((a,i) => {
                             return <tr key={i}>
-                                    <td>{j.itemOne}</td>
                                     <td>
-                                        <Link className="btn btn-warning" to={`/edit/${j._id}`}>Edit</Link>
+                                        <Link to={`/show/${a._id}`}>{a.name}</Link>
+                                    </td>
+                                    <td>
+                                        <Link className="btn btn-warning" to={`/edit/${a._id}`}
+                                            >Edit
+                                        </Link>
                                         <button 
-                                            className="btn btn-danger"
-                                            onClick={() => {handleDestroyTemplate(j._id)}}
-                                        >Delete</button>
-                                        <Link 
-                                            to={`/show/${j._id}`}
-                                            className="btn btn-success">itemTwo--</Link>
+                                            className="btn btn-danger mx-2"
+                                            onClick={() => {handleDestroyAuthor(a._id)}}
+                                            >Delete
+                                        </button>
                                     </td>
                             </tr>
                         })

@@ -1,5 +1,6 @@
-import NotFound from './NotFound';
+import {Link } from '@reach/router';
 import {useState, useEffect} from 'react';
+import NotFound from './NotFound';
 import Axios from 'axios';
 
 
@@ -13,13 +14,22 @@ const Show = props => {
     }, [props])
 
     return(
-        author ?
-        <div className="card col-4 mx-auto">
-            <div className="card-body">
-                <h3 className="card-title">{author.name}</h3>
+        <div className="col-7 mx-auto">
+            <div className="text-left">
+                <Link to="/">Home</Link>
             </div>
-        </div> :
-        <NotFound />
+            <div>
+                {
+                    author ?
+                    <div className="card col-4">
+                        <div className="card-body">
+                            <h3 className="card-title">{author.name}</h3>
+                        </div>
+                    </div> :
+                    <NotFound />
+                }
+            </div>
+        </div>
     )
 }
 

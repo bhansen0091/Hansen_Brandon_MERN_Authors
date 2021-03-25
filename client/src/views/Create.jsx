@@ -36,7 +36,7 @@ const Create = props => {
         <>
             <AuthorForm 
                 inputs = {author}
-                title = "Create Author"
+                title = "Add a new author"
                 submitValue = "Create"
                 handleInputChange = {handleChange}
                 handleSubmit = {handleSubmit}

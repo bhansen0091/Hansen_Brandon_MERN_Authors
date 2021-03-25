@@ -41,7 +41,7 @@ const Edit = props => {
                 author?
                 <AuthorForm 
                     inputs = {author}
-                    title = "Edit Author"
+                    title = "Edit This Author"
                     submitValue = "Edit"
                     handleInputChange = {handleChange}
                     handleSubmit = {handleSubmit}
